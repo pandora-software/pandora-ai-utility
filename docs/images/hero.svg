@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title desc">
+  <title id="title">Pandora</title>
+  <desc id="desc">Pandora coordinates Agent A and Agent B, whose work joins into one output.</desc>
+  <defs>
+    <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#10182b"/><stop offset="1" stop-color="#101119"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ab91ff"/><stop offset="1" stop-color="#5099ff"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#7262df" stop-opacity=".23"/><stop offset="1" stop-color="#7262df" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect x="1" y="1" width="1278" height="358" rx="24" fill="url(#surface)" stroke="#30384f"/>
+  <ellipse cx="917" cy="180" rx="310" ry="178" fill="url(#glow)"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <g transform="translate(106 140) scale(1.67)">
+      <rect width="48" height="48" rx="12" fill="url(#accent)"/>
+      <g transform="translate(8 8) scale(1.33)" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round">
+        <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/>
+      </g>
+    </g>
+    <text x="214" y="209" fill="#f4f6ff" font-size="82" font-weight="700" letter-spacing="-3">Pandora</text>
+    <g transform="translate(-80 0)">
+      <g fill="none" stroke="#8896d0" stroke-width="2" stroke-linecap="round">
+        <path d="M880 180C903 180 903 97 926 97"/>
+        <path d="M880 180C903 180 903 263 926 263"/>
+        <path d="M1068 97C1091 97 1091 180 1114 180"/>
+        <path d="M1068 263C1091 263 1091 180 1114 180"/>
+      </g>
+      <rect x="738" y="147" width="142" height="66" rx="14" fill="#22223b" stroke="#a08cf4"/>
+      <text x="809" y="187" text-anchor="middle" fill="#f2edff" font-size="22" font-weight="600">Pandora</text>
+      <rect x="926" y="64" width="142" height="66" rx="14" fill="#1d2232" stroke="#515068"/>
+      <circle cx="946" cy="97" r="5" fill="#e4b485"/>
+      <text x="962" y="104" fill="#eee5dc" font-size="22" font-weight="600">Agent A</text>
+      <rect x="926" y="230" width="142" height="66" rx="14" fill="#192639" stroke="#395572"/>
+      <rect x="941" y="258" width="10" height="10" rx="3" fill="#7bb9ff"/>
+      <text x="962" y="270" fill="#dbecff" font-size="22" font-weight="600">Agent B</text>
+      <rect x="1114" y="147" width="142" height="66" rx="14" fill="#22223b" stroke="#a08cf4"/>
+      <text x="1185" y="187" text-anchor="middle" fill="#f2edff" font-size="22" font-weight="600">Output</text>
+    </g>
+  </g>
+</svg>
