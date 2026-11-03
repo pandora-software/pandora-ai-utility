@@ -43,7 +43,7 @@ Talk to `@claude`, `@codex` or `@all` in the same conversation. Messages without
 
 ## Tasks and code review
 
-Use the task board for work that needs a clear brief, an owner and a checklist. Add dependencies and acceptance criteria so everyone can see what needs to happen before a task is done. Starting an assigned task sends the brief to its agent and moves the card to **Doing**.
+Open **Tasks** beside **Chats** and **Work** to use the full task board. Give work a clear brief, an owner and a checklist. Add dependencies and acceptance criteria so everyone can see what needs to happen before a task is done. Starting an assigned task sends the brief to its agent and moves the card to **Doing**.
 
 You can review changed files in VS Code, leave line comments for the agent and open a GitHub pull request from the task. Merging stays with you.
 
@@ -65,7 +65,7 @@ You can review changed files in VS Code, leave line comments for the agent and o
 
 ## Workflows
 
-Save a process you use often as a workflow. Connect steps for planning, coding, review and testing, then choose the agent and role for each one. Work can run in parallel, join back together and pause when it needs your input.
+Open **Flows** from the panel title bar to see your workflows and recent runs. Save a process you use often as a workflow. Connect steps for planning, coding, review and testing, then choose the agent and role for each one. Work can run in parallel, join back together and pause when it needs your input.
 
 [![The workflow editor showing Studio Session: a coordinator, three parallel coders, a continuity checker and a tester.](docs/images/editor.png)](docs/images/editor.png)
 
@@ -86,9 +86,9 @@ Five workflows are included:
 - Set the agent, role, model, effort level and permissions for each step.
 - Delegate a focused job to a helper model.
 - Limit steps, loops and concurrent turns. Token budgets are optional.
-- Start a workflow from the editor, the **Flows** tab or chat: `/run studio add OAuth login`.
+- Start a workflow from the editor, the **Flows** title-bar button or chat: `/run studio add OAuth login`.
 
-[View the Flows tab](docs/images/flows.png)
+[View workflows and recent runs](docs/images/flows.png)
 
 </details>
 
