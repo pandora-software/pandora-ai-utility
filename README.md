@@ -1,168 +1,221 @@
 <p align="center">
-  <img src="docs/images/hero.svg" alt="Pandora coordinates Agent A and Agent B, whose work joins into one output." width="1280">
+  <img src="docs/images/hero.svg" alt="Pandora workflow: input branches to two agents and their work joins into one output." width="1280">
 </p>
 
 # Pandora
 
-**Run Claude Code and Codex together in VS Code.**
+**Run coding agents in VS Code with the engine and models you choose.**
 
-Pandora gives your coding agents a shared place to talk, organise work and keep project notes. You can ask one agent to write a feature and another to review it, follow their progress, and inspect the changes without passing context between separate chats.
+Pandora brings agent chats, tasks, workflows, project notes and documentation into one place. Work with one agent or add a team, follow their progress, inspect changes and keep shared context with your project.
 
-It uses the agent tools you're already signed in to. You don't need separate model API keys for this setup; your providers' usage limits and billing still apply.
+Codex or Claude alone is enough. Pandora uses the agent tools you're already signed in to, without separate model API keys for this setup. Your providers' usage limits and billing still apply.
 
-> **In development · Not publicly available yet.** This repository is a preview of Pandora. The setup instructions below are for testers who already have a build.
+> **In development · Not publicly available yet.** This repository previews Pandora. The setup instructions below are for testers who already have a build.
 
-[Chat](#team-chat) · [Tasks](#tasks-and-code-review) · [Workflows](#workflows) · [Knowledge](#project-knowledge) · [Usage and controls](#usage-and-controls) · [Tester setup](#tester-setup) · [Feedback](#feedback)
+[Chat](#team-chat) · [Agents](#project-agents) · [Tasks](#tasks-and-code-review) · [Workflows](#workflows) · [Docs](#project-documentation) · [Knowledge](#project-knowledge) · [Usage](#usage-and-controls) · [Settings](#settings-and-updates) · [Tester setup](#tester-setup) · [Feedback](#feedback)
 
-[![Pandora's task board, showing task owners and work moving through Todo, Doing, Review and Done.](docs/images/tasks.png)](docs/images/tasks.png)
+[![Pandora's task board, with named owners, categories and tasks in Todo, Doing, Review and Done.](docs/images/tasks.png)](docs/images/tasks.png)
 
 ## Team chat
 
-Talk to `@claude`, `@codex` or `@all` in the same conversation. Messages without a mention go to Pandora, the coordinator. Agents can share updates and hand work to each other, while you follow along, answer questions or add a follow-up as they work.
+Messages go directly to the agent you select, which handles the work itself. New projects start with **Pandora**. Select another project agent, mention it by name or use `@all` to address the active team. Coordination between agents is available when you run a workflow.
 
 ```text
-@all add a dark mode toggle, then review the changes and run the tests
+Add a dark mode toggle, then run the tests.
 ```
 
-[![An expanded Pandora chat view with agent replies, a question with clickable answers and live test output.](docs/images/chat.png)](docs/images/chat.png)
+[![Pandora chat showing named agents, task links, clickable answers and live command output.](docs/images/chat.png)](docs/images/chat.png)
 
 <details>
 <summary><strong>Chat tools</strong></summary>
 
 - Keep separate conversations with their own agent sessions. Rename, archive or delete chats as needed.
-- Mention workspace files with autocomplete, open file links from replies, and attach files or images. Agents can send screenshots back.
-- Answer questions with clickable choices. Edit or delete messages you've sent, or send a follow-up during an active turn.
-- Choose each agent's model, effort level and access for each chat: **Read only**, **Edit** or **Shell**.
-- Expand a turn to see its steps, command output, duration and exit status. Open changed files as before/after diffs.
-- Undo a turn's changes, with a warning if a file has changed again. Inspect logs and retry failed turns.
-- Collapse long exchanges between agents while keeping questions and final results visible.
+- Type `@@` for workspace file autocomplete. Use `@` for project agents, task groups and enabled plugin shortcuts.
+- Open file links from replies and attach files, images or pasted text. Agents can send screenshots back.
+- Answer questions with clickable choices, edit or delete messages you've sent, and add follow-ups during active work.
+- Choose models and effort levels, and set each agent's access for the current chat.
+- Expand a turn to see steps, commands, output, duration, exit status and changed-file diffs.
+- Open the sub-agent menu to see each helper's task, state, activity and result.
+- Inspect logs, retry failed turns and undo recorded file changes when their snapshots can be verified.
+- Collapse long exchanges while keeping questions and results visible.
 
 [View an expanded turn](docs/images/turn.png) · [View the chat list](docs/images/chats.png)
 
 </details>
 
+## Project agents
+
+Open **Work** to manage the agents in this project. **+** adds an agent with its own name, icon, engine and model. Several agents can use the same engine while keeping separate identities, chats, settings and task assignments.
+
+Pandora stays in every project: its name is fixed and it cannot be retired. Its **Edit** control provides one model dropdown with Codex and Claude choices. Custom agents have full editing controls and can be retired or restored. Retirement preserves their history and unfinished assignments.
+
+[![The Work page with project agents, their engines and models, pause controls and the add-agent button.](docs/images/work.png)](docs/images/work.png)
+
+<details>
+<summary><strong>Agent controls</strong></summary>
+
+- Pause new turns, resume queued work or stop an agent.
+- Stop cancels current and queued work and clears saved sessions. A manually paused agent stays paused.
+- Set per-chat access from each agent's access dropdown. A change during a turn applies from the next turn.
+- Inspect claimed files, coordination health and plugin status.
+- Use one supported engine throughout the project, including new default workflows.
+
+</details>
+
 ## Tasks and code review
 
-Open **Tasks** beside **Chats** and **Work** to use the full task board. Give work a clear brief, an owner and a checklist. Add dependencies and acceptance criteria so everyone can see what needs to happen before a task is done. Starting an assigned task sends the brief to its agent and moves the card to **Doing**.
+Open **Tasks** beside **Chats** and **Work** for the full task board. Give work a brief, an owner, a checklist, dependencies and acceptance criteria. Assignment alone does not start an agent. **Start** begins the timer and sends an assigned agent its brief.
 
-You can review changed files in VS Code, leave line comments for the agent and open a GitHub pull request from the task. Merging stays with you.
+Expanded cards show a live clock. TTC is calculated from recorded start and finish times, down to the second, and cannot be edited. ETA stays editable. Moving a task, handing it off or reloading keeps its timer running.
+
+Started tasks can complete only after their checklist is finished and every acceptance criterion has passing evidence. Review changed files in VS Code, leave line comments for the agent and open a GitHub pull request from the task. Merging stays with you.
+
+[![An expanded task with timing controls, a checklist, acceptance criteria and review tools.](docs/images/task.png)](docs/images/task.png)
 
 <details>
 <summary><strong>Task details and review tools</strong></summary>
 
-[![A Pandora task with a description, checklist, acceptance criteria and review tools.](docs/images/task.png)](docs/images/task.png)
-
 - Start with **Todo**, **Doing** and **Done**, or add columns such as **Review**. Reorder and recolour the board.
-- Add owners, categories, tags, severity, images, checklists and dependencies to cards.
-- Record passing evidence for acceptance criteria before an agent finishes a task.
-- Create a task from chat: `/task @codex write tests for the parser`.
+- Add owners, categories, tags, severity, images, checklists and dependencies.
+- Edit subtask titles and descriptions, with saved changes reflected on the board.
+- Create a task without starting it using `/task write tests for the parser`, or use `/task @pandora write tests for the parser` to hand it to an agent.
 - Use mentions such as `@Todo` or `@bugs` to reach agents working on a group of tasks.
 - Give a task its own Git branch, or use an optional worktree and port.
 - Include the task's criteria and checks when opening a pull request. Follow its status from the card.
-- Archive finished tasks so agents can still look up the work later.
+- Archive finished tasks so agents can look up the work later.
 
 </details>
 
 ## Workflows
 
-Open **Flows** from the panel title bar to see your workflows and recent runs. Save a process you use often as a workflow. Connect steps for planning, coding, review and testing, then choose the agent and role for each one. Work can run in parallel, join back together and pause when it needs your input.
+Open **More → Flows** to see workflows and recent runs, then open the editor to change a workflow. Connect steps for planning, implementation, review and testing. Choose a project agent and role for each step; branches can run in parallel, join together and pause for your input.
 
-[![The workflow editor showing Studio Session: a coordinator, three parallel coders, a continuity checker and a tester.](docs/images/editor.png)](docs/images/editor.png)
+New default workflows use the project's Pandora agent, so you can run them with one supported engine. Assign different project agents when you want separate roles or models.
+
+[![The workflow editor with connected planning, implementation, review and test steps and a step inspector.](docs/images/editor.png)](docs/images/editor.png)
 
 Five workflows are included:
 
 | Workflow | What it does |
 | --- | --- |
-| **Studio Session** | Plans a feature, splits implementation across agents, checks that the changes fit together and runs tests. |
+| **Studio Session** | Plans a feature, splits implementation into parallel work, checks that the changes fit together and runs tests. |
 | **Bug Fix** | Reproduces a problem, fixes the cause and checks the result. |
 | **Optimize** | Measures a baseline, makes changes and measures again. |
-| **Council** | Brings several models into a discussion and checks decisions with you. |
+| **Council** | Uses discussion and review roles to develop a plan and check decisions with you. |
 | **Update Knowledge** | Creates or refreshes the project's shared notes. |
 
 <details>
 <summary><strong>Workflow editor and controls</strong></summary>
 
-- Drag steps into place and connect their outcomes. A **Join** step waits for parallel branches to finish.
-- Set the agent, role, model, effort level and permissions for each step.
-- Delegate a focused job to a helper model.
-- Limit steps, loops and concurrent turns. Token budgets are optional.
-- Start a workflow from the editor, the **Flows** title-bar button or chat: `/run studio add OAuth login`.
+- Drag steps into place and connect their outcomes. A **Join** step waits for parallel branches.
+- Set the project agent, role, model, effort level and permissions for each step.
+- Delegate a focused job to a helper.
+- Limit steps, loops and concurrent turns, with optional token budgets.
+- Start a workflow from the editor or chat: `/run studio add OAuth login`.
 
 [View workflows and recent runs](docs/images/flows.png)
 
 </details>
 
+## Project documentation
+
+Open **More → Docs** to browse project guides and references. Search or navigate nested pages, follow source links, use the page outline and copy syntax-highlighted code.
+
+When you ask an agent to add or maintain documentation, it proposes a draft. Review the changes and accept that exact revision to publish it. Published pages remain available while drafts change.
+
+[![Project documentation with Drafts and Published navigation, a page reader and highlighted code.](docs/images/docs.png)](docs/images/docs.png)
+
+<details>
+<summary><strong>Documentation tools</strong></summary>
+
+- See pending drafts and their count as they arrive.
+- Edit drafts, check source references and links, inspect history, and archive or restore pages.
+- Keep draft review separate from the published version.
+- Open documentation with `/docs`, or request work with `/docs @pandora document the storage module`.
+- Keep human-facing documentation separate from the agents' project knowledge.
+
+</details>
+
 ## Project knowledge
 
-Decisions and findings shouldn't disappear into an old chat. Pandora keeps shared notes in `.pandora/knowledge`, where agents can find what has already been agreed, read the relevant context and update it as the project changes.
+Pandora keeps shared decisions, plans and findings in `.pandora/knowledge`. Agents can search what has already been agreed, read the relevant context and update existing notes as the project changes.
 
-The notes are Markdown files you can read, edit and commit with your code. The graph lets you browse their connections and the source files they refer to.
+Open **More → Knowledge** for a searchable, grouped overview. Select a note to see its direct connections or read it in the sidebar. The notes are Markdown files you can edit and commit with your code.
 
-[![Pandora's knowledge graph linking a project overview, plans, architectural notes and findings.](docs/images/graph.png)](docs/images/graph.png)
+[![The Knowledge view with project notes grouped by type, search and referenced-code controls.](docs/images/graph.png)](docs/images/graph.png)
 
 <details>
 <summary><strong>Working with project notes</strong></summary>
 
 - Keep decisions, plans, findings and how-tos together across conversations.
 - Give agents a compact index and tools to find, read and update existing notes.
-- Use coordination rules and edit hooks to keep new documentation in the shared knowledge folder.
-- Search the graph, filter by note type, show referenced code files and open notes to read them.
+- Search notes, filter their types and inspect referenced source files.
+- Follow direct connections from a selected note, with navigation and scroll preserved.
 - Commit the notes so they stay with the project.
 
 </details>
 
 ## Usage and controls
 
-The stats view shows where time and tokens are going. Compare agents, roles, models and effort levels, or look at individual runs to find slow commands and failed work.
+Open **More → Stats** to compare time and token use across agents, roles, models and effort levels. Inspect individual runs, slow commands and failed work.
 
-The **Work** tab shows who's active and which files they've claimed. You can pause, resume or stop agents there, or stop an active turn directly from chat.
+Plugin statistics show calls, measured duration, outcomes and linked-turn token totals by plugin, action and agent. Manual and polling activity is identified separately.
 
-[![Pandora's stats dashboard showing token trends, agent time, role efficiency, commands and recent runs.](docs/images/stats.png)](docs/images/stats.png)
+[![The Stats view with token trends, agent and role comparisons, command timings, runs and plugin activity.](docs/images/stats.png)](docs/images/stats.png)
 
 <details>
 <summary><strong>Usage tracking and budgets</strong></summary>
 
 - Track turns, fresh and cached input, output tokens and elapsed time.
-- Compare success rates and average token use by agent, role, model and effort level.
-- Separate command time, model time and other work. Inspect slow commands and recent runs.
+- Compare success rates and average usage by agent, role, model and effort level.
+- Separate command time, model time and other work.
 - Set optional token budgets for tasks and workflows.
 
-Missing usage is shown as **unknown**. An active turn can exceed its token budget before further work pauses, so budgets aren't hard spending caps. Token totals describe usage, not a dollar invoice.
+Missing usage is shown as **unknown**. An active turn can exceed its token budget before further work pauses, so budgets are not hard spending caps. Token totals describe usage, not a dollar invoice.
 
 </details>
 
 <details>
 <summary><strong>Coordination, permissions and recovery</strong></summary>
 
-Pandora runs the agent CLIs in your workspace and gives them shared messages, tasks, file claims and notes. Claims and edit guards help agents avoid conflicting changes; build locks prevent overlapping builds in the same build tree.
+Pandora runs agent CLIs in your workspace with shared messages, tasks, file claims and notes. Claims and edit guards help agents avoid conflicting changes; build locks prevent overlapping builds in the same build tree.
 
-- **Permissions:** choose access per chat. Codex uses its workspace sandbox; Claude uses a configured tool allowlist.
-- **Run controls:** pause, resume or stop agents. Loop guards pause repeated exchanges between agents, and timeouts limit stalled work.
+- **Permissions:** choose access per chat. Codex uses its configured sandbox; Claude uses a configured tool allowlist.
+- **Run controls:** pause, resume or stop agents. Loop guards pause repeated exchanges, and timeouts limit stalled work.
 - **Health checks:** inspect hooks, commands, the runner, waiting messages and locks on demand. Repairs run only when you choose them.
-- **Recovery:** the board is backed up daily. Export and restore are also available.
-- **Project files:** `.pandora/` holds shared configuration and knowledge. Chats, tasks and runtime state are stored separately from your source files.
-
-[![The Work tab showing agent status, tasks, health checks and claimed files.](docs/images/work.png)](docs/images/work.png)
+- **Plugins:** review tools and access before enabling a plugin. Changed packages need fresh approval; licence acceptance stays with the user.
+- **Recovery:** automatic daily backups, export and restore keep the board recoverable.
+- **Project files:** `.pandora/` holds shared configuration, notes and documentation. Chats, tasks and runtime state are stored separately from source files.
 
 </details>
 
+## Settings and updates
+
+Open **Pandora Settings** from the panel title bar. Search settings, choose User, Workspace or Folder scope, inspect inherited values and overrides, and reset individual settings.
+
+[![Pandora Settings with searchable engine and plugin options, scope selection and reset controls.](docs/images/settings.png)](docs/images/settings.png)
+
+**What's New** opens once for each installed version and lists additions, changes and fixes. Reopen it at any time with **Pandora: What’s New** in the Command Palette.
+
+[![The What's New page with versioned Added, Changed and Fixed lists.](docs/images/changelog.png)](docs/images/changelog.png)
+
 ## Tester setup
 
-You'll need a test build supplied to you; Pandora isn't publicly available yet.
+You'll need a test build supplied to you; Pandora is not publicly available yet.
 
-**Currently supported:** Claude Code and Codex. More agents are planned.
+**Currently supported engines:** Codex and Claude Code. You only need one; more engines are planned.
 
-**Requirements:** VS Code, signed-in Claude Code and Codex tools, Node.js **22.13+**, and Git. Install the GitHub CLI (`gh`) if you want to open pull requests from tasks.
+**Requirements:** VS Code, one supported agent tool installed and signed in, Node.js **22.13+**, and Git. Install the GitHub CLI (`gh`) if you want to open pull requests from tasks.
 
 1. **Unzip your test build.** Use the package provided to you for testing.
 2. **Install the extension.** Run `install.cmd` on Windows or `sh install.sh` on macOS/Linux, then reload VS Code.
-3. **Set up your project.** Open Pandora from the activity bar and choose **Set up workspace**. Apply the Codex configuration snippet if one is shown.
-4. **Enable the hooks.** Start a Codex chat once and approve Pandora's hooks when prompted.
+3. **Set up your project.** Open Pandora from the activity bar, choose **Set up workspace** and select the engine you use.
+4. **Complete the selected engine's setup.** If you choose Codex, apply the configuration snippet if shown, start a Codex chat once and approve Pandora's hooks when prompted. Claude-only setup does not require Codex.
 
 A first message can be as simple as:
 
 ```text
-@claude explain how this project is organised
+Explain how this project is organised.
 ```
 
 When you're ready to try a workflow, use `/run studio <your feature>`.
