@@ -8,7 +8,7 @@
 
 Pandora brings agent chats, tasks, workflows, project notes and documentation into one place. Work with one agent or add a team, follow their progress, inspect changes and keep shared context with your project.
 
-Codex or Claude alone is enough. Pandora uses the agent tools you're already signed in to, without separate model API keys for this setup. Your providers' usage limits and billing still apply.
+Codex, Claude Code or Ollama alone is enough. Use agent tools you're already signed in to, or run an installed local model through Ollama. Pandora does not require separate model API keys for these setups. Your providers' usage limits and billing still apply.
 
 > **In development · Not publicly available yet.** This repository previews Pandora. The setup instructions below are for testers who already have a build.
 
@@ -47,7 +47,7 @@ Add a dark mode toggle, then run the tests.
 
 Open **Work** to manage the agents in this project. **+** adds an agent with its own name, icon, engine and model. Several agents can use the same engine while keeping separate identities, chats, settings and task assignments.
 
-Pandora stays in every project: its name is fixed and it cannot be retired. Its **Edit** control provides one model dropdown with Codex and Claude choices. Custom agents have full editing controls and can be retired or restored. Retirement preserves their history and unfinished assignments.
+Pandora stays in every project: its name is fixed and it cannot be retired. Its **Edit** control provides one model dropdown with Codex, Claude and installed Ollama choices. Custom agents have full editing controls and can be retired or restored. Retirement preserves their history and unfinished assignments.
 
 [![The Work page with project agents, their engines and models, pause controls and the add-agent button.](docs/images/work.png)](docs/images/work.png)
 
@@ -61,6 +61,22 @@ Pandora stays in every project: its name is fixed and it cannot be retired. Its 
 - Use one supported engine throughout the project, including new default workflows.
 
 </details>
+
+### Local models with Ollama
+
+Choose **Ollama** during setup or when adding an agent. Start your Ollama server and install a model that supports tool use first; Pandora lists installed models and checks their capabilities. Refresh the model list after adding or removing a model. The server address is configurable in Settings.
+
+Ollama agents use Pandora's native file and shell tools, shared messages, tasks, knowledge, approved plugin tools and workflow handoffs. They do not require the Claude or Codex CLI. File access follows the chat's permissions and file claims.
+
+Execution receipts show observed tool outcomes. Saved checked steps track supported instructions, help reject wrong targets and premature completion, and preserve pending work across sessions. These checks do not verify every natural-language requirement or arbitrary shell effect. Small local models can still omit work, get stuck or report success after failures; inspect the resulting state and checks before relying on completion.
+
+### Background jobs
+
+For a long test run, build or benchmark, an agent can propose the exact command, folder and shell. Choose **Run** or **Dismiss** in chat or **Work**. Only you start the job. It runs independently of the agent and VS Code window, and completion notifies the proposing agent in the same chat so it can continue.
+
+Work shows elapsed time, exit status, output, logs and running processes when available. **Stop** ends a running job. **Close** removes a finished, failed or stopped job from Work and its linked chat controls, without adding a history section.
+
+Eligible command rows also offer **Run in background** or **Rerun in background**. A live command restarts from the beginning after stopping the agent's current and queued work; partial effects remain. Review the confirmation before restarting a command.
 
 ## Tasks and code review
 
@@ -178,9 +194,9 @@ Missing usage is shown as **unknown**. An active turn can exceed its token budge
 <details>
 <summary><strong>Coordination, permissions and recovery</strong></summary>
 
-Pandora runs agent CLIs in your workspace with shared messages, tasks, file claims and notes. Claims and edit guards help agents avoid conflicting changes; build locks prevent overlapping builds in the same build tree.
+Pandora runs agent CLIs or connects to Ollama with shared messages, tasks, file claims and notes. Claims and edit guards help agents avoid conflicting changes; build locks prevent overlapping builds in the same build tree.
 
-- **Permissions:** choose access per chat. Codex uses its configured sandbox; Claude uses a configured tool allowlist.
+- **Permissions:** choose access per chat. Codex uses its configured sandbox; Claude uses a configured tool allowlist. Ollama's native tools enforce the selected access; Shell access is not an operating-system sandbox.
 - **Run controls:** pause, resume or stop agents. Loop guards pause repeated exchanges, and timeouts limit stalled work.
 - **Health checks:** inspect hooks, commands, the runner, waiting messages and locks on demand. Repairs run only when you choose them.
 - **Plugins:** review tools and access before enabling a plugin. Changed packages need fresh approval; licence acceptance stays with the user.
@@ -203,14 +219,14 @@ Open **Pandora Settings** from the panel title bar. Search settings, choose User
 
 You'll need a test build supplied to you; Pandora is not publicly available yet.
 
-**Currently supported engines:** Codex and Claude Code. You only need one; more engines are planned.
+**Currently supported engines:** Codex, Claude Code and Ollama. You only need one.
 
-**Requirements:** VS Code, one supported agent tool installed and signed in, Node.js **22.13+**, and Git. Install the GitHub CLI (`gh`) if you want to open pull requests from tasks.
+**Requirements:** VS Code, Node.js **22.13+**, Git, and either a supported agent CLI installed and signed in or a running Ollama server with an installed tool-capable model. Install the GitHub CLI (`gh`) if you want to open pull requests from tasks.
 
 1. **Unzip your test build.** Use the package provided to you for testing.
 2. **Install the extension.** Run `install.cmd` on Windows or `sh install.sh` on macOS/Linux, then reload VS Code.
 3. **Set up your project.** Open Pandora from the activity bar, choose **Set up workspace** and select the engine you use.
-4. **Complete the selected engine's setup.** If you choose Codex, apply the configuration snippet if shown, start a Codex chat once and approve Pandora's hooks when prompted. Claude-only setup does not require Codex.
+4. **Complete the selected engine's setup.** If you choose Codex, apply the configuration snippet if shown, start a Codex chat once and approve Pandora's hooks when prompted. Claude-only setup does not require Codex. For Ollama, choose an installed model; no Claude or Codex sign-in is needed.
 
 A first message can be as simple as:
 
