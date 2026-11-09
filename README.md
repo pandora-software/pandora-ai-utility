@@ -38,10 +38,17 @@ Add a dark mode toggle, then run the tests.
 - Open the sub-agent menu to see each helper's task, state, activity and result.
 - Inspect logs, retry failed turns and undo recorded file changes when their snapshots can be verified.
 - Collapse long exchanges while keeping questions and results visible.
+- Continue linked tasks with saved summaries of decisions, constraints, files, checks and next steps. Newer messages stay visible, and full history remains available; saved checks are historical context, not fresh proof.
 
 [View an expanded turn](docs/images/turn.png) · [View the chat list](docs/images/chats.png)
 
 </details>
+
+### Senior mode
+
+Start a message with `/senior` and your task, for example `/senior @pandora review how file claims work`. It guides the agent to reuse existing code, keep changes small, trace affected callers and check risky behavior. It does not switch the model or guarantee correctness.
+
+The default **full** level stays on in that chat until `/senior off`. **lite** also names a smaller option; **ultra** challenges unnecessary scope. Use `/senior review`, `/senior audit` or `/senior debt` for a one-off report without editing code or changing the active level.
 
 ## Project agents
 
@@ -72,7 +79,7 @@ Execution receipts show observed tool outcomes. Saved checked steps track suppor
 
 ### Background jobs
 
-For a long test run, build or benchmark, an agent can propose the exact command, folder and shell. Choose **Run** or **Dismiss** in chat or **Work**. Only you start the job. It runs independently of the agent and VS Code window, and completion notifies the proposing agent in the same chat so it can continue.
+For a long test run, build or benchmark, an agent can propose the exact command, folder and shell. By default, choose **Run** or **Dismiss** in chat or **Work**. If you enable **Allow agents to sleep themselves**, permitted proposals start automatically after the agent ends its turn. Pause, Stop and the chat's current Shell access still apply to automatic starts. A running job is independent of the agent and VS Code window, and completion notifies the proposing agent in the same chat so it can continue.
 
 Work shows elapsed time, exit status, output, logs and running processes when available. **Stop** ends a running job. **Close** removes a finished, failed or stopped job from Work and its linked chat controls, without adding a history section.
 
@@ -201,6 +208,7 @@ Pandora runs agent CLIs or connects to Ollama with shared messages, tasks, file 
 - **Health checks:** inspect hooks, commands, the runner, waiting messages and locks on demand. Repairs run only when you choose them.
 - **Plugins:** review tools and access before enabling a plugin. Changed packages need fresh approval; licence acceptance stays with the user.
 - **Recovery:** automatic daily backups, export and restore keep the board recoverable.
+- **Interrupted work:** after a runner restart, recorded live or unconfirmed processes keep their file claims and hold replacement work. Saved workflow handoffs resume once after those processes exit. Uncertain actions wait for your review through **Retry** or **Continue**. **Release** clears a held turn without replaying it or stopping an old process, so inspect it first. External actions without a completion record cannot be guaranteed to run exactly once.
 - **Project files:** `.pandora/` holds shared configuration, notes and documentation. Chats, tasks and runtime state are stored separately from source files.
 
 </details>
