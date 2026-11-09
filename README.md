@@ -6,13 +6,13 @@
 
 **Run coding agents in VS Code with the engine and models you choose.**
 
-Pandora brings agent chats, tasks, workflows, project notes and documentation into one place. Work with one agent or add a team, follow their progress, inspect changes and keep shared context with your project.
+Pandora brings agent chats, tasks, workflows, reports, project notes and documentation into one place. Work with one agent or add a team, follow their progress, inspect changes and keep shared context with your project.
 
 Codex, Claude Code or Ollama alone is enough. Use agent tools you're already signed in to, or run an installed local model through Ollama. Pandora does not require separate model API keys for these setups. Your providers' usage limits and billing still apply.
 
 > **In development · Not publicly available yet.** This repository previews Pandora. The setup instructions below are for testers who already have a build.
 
-[Chat](#team-chat) · [Agents](#project-agents) · [Tasks](#tasks-and-code-review) · [Workflows](#workflows) · [Docs](#project-documentation) · [Knowledge](#project-knowledge) · [Usage](#usage-and-controls) · [Settings](#settings-and-updates) · [Tester setup](#tester-setup) · [Feedback](#feedback)
+[Chat](#team-chat) · [Agents](#project-agents) · [Tasks](#tasks-and-code-review) · [Workflows](#workflows) · [Docs](#project-documentation) · [Reports](#reports) · [Knowledge](#project-knowledge) · [Usage](#usage-and-controls) · [Settings](#settings-and-updates) · [Tester setup](#tester-setup) · [Feedback](#feedback)
 
 [![Pandora's task board, with named owners, categories and tasks in Todo, Doing, Review and Done.](docs/images/tasks.png)](docs/images/tasks.png)
 
@@ -142,7 +142,7 @@ Five workflows are included:
 
 ## Project documentation
 
-Open **More → Docs** to browse project guides and references. Search or navigate nested pages, follow source links, use the page outline and copy syntax-highlighted code.
+Open **More → Docs** to browse project guides and references in the left sidebar. Select a page to read it in the editor on the right. Search or navigate nested pages, follow source links, use the page outline and copy syntax-highlighted code.
 
 When you ask an agent to add or maintain documentation, it proposes a draft. Review the changes and accept that exact revision to publish it. Published pages remain available while drafts change.
 
@@ -158,6 +158,20 @@ When you ask an agent to add or maintain documentation, it proposes a draft. Rev
 - Keep human-facing documentation separate from the agents' project knowledge.
 
 </details>
+
+## Reports
+
+Ask for a detailed answer with `/report` followed by your request, for example `/report compare these designs with screenshots and recommendations`. The selected agent can return an illustrated report with the original request, findings and source references. The reply includes a link to open it.
+
+Open **More → Reports**, marked with a clipboard icon, or type `/report` alone to browse the left sidebar. Search the list and select a report to read it in the editor on the right. Returning to the list keeps the reader open.
+
+[![Reports with search and management actions in the left sidebar and the selected illustrated-report reader on the right. Sample content.](docs/images/reports.png)](docs/images/reports.png)
+
+- See unread markers in the list. Docs and Reports have their own pending counts; **More** shows their combined total.
+- Open images at full size and follow source references. Reports retain their own image copies and are shared across the project's worktrees.
+- Export a report to PDF using a locally installed supported Edge, Chrome or Chromium browser.
+- Use a report's **Actions** to move it to **Trash**, restore it or delete it permanently. Permanent deletion requires confirmation and removes its stored images.
+- Reports are saved answers, separate from Docs drafts and publication review. They are project files and are not included in board-only database backups.
 
 ## Project knowledge
 
@@ -248,7 +262,7 @@ When you're ready to try a workflow, use `/run studio <your feature>`.
 
 Found a bug or something confusing? [Open an issue](https://github.com/pandora-software/pandora-ai-utility/issues) with what you tried, what you expected and what happened. Include your Pandora and VS Code versions.
 
-Testers can also type `/report` in a Pandora chat. You choose what to include, then a debug report opens for you to read and edit. Reports are filtered to remove paths, email addresses, usernames and keys; chat text is included only if you select it. **Open Issue** submits the report using your own GitHub sign-in.
+Testers can also open **Pandora Settings → Send feedback**. You choose what to include, then a debug report opens for you to read and edit. Feedback reports are filtered to remove paths, email addresses, usernames and keys; chat text is included only if you select it. **Open Issue** submits the report using your own GitHub sign-in.
 
 Issues in this repository are public, so review the report before posting.
 
